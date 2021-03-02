@@ -1,0 +1,145 @@
+﻿<Window x:Class="DarkChat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DarkChat" xmlns:viewmodel="clr-namespace:DarkChat.wpf.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize"
+        Icon="\Resource\Images\LoginLogo.png">
+    
+    <Window.DataContext>
+        <viewmodel:ClientModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Miriam Libre"/>
+            <Setter Property="Foreground" Value="#7c7c7c"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#0f0f0f">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="TopPanel"
+              Grid.Row="0"
+              Background="#19191b">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0"
+                   Source="\Resource\Images\Logo.png"
+                   ToolTip="Made by DimaSpencer"
+                   Margin="5"
+                   />
+            <Label x:Name="UserName"
+                   ToolTip="Your name"
+                   Content="{Binding UserName}"
+                   FontSize="15"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Grid.Column="1"/>
+            <Button x:Name="SettingsButton"
+                    ToolTip="Settings"
+                    Grid.Column="2"
+                    Padding="6">
+                <Image Source="\Resource\Images\SettingsButton.png"/>
+            </Button>
+            <Button x:Name="CollapseButton"
+                    ToolTip="Collapse the program"
+                    Grid.Column="3"
+                    Padding="9">
+                <Image Source="\Resource\Images\CollapseButton.png"/>
+            </Button>
+            <Button x:Name="CloseButton"
+                    ToolTip="Close the program"
+                    Grid.Column="4"
+                    Padding="8" Height="35" VerticalAlignment="Bottom">
+                <Image Source="\Resource\Images\CloseButton.png"/>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer x:Name="ChatScroll"
+                          VerticalScrollBarVisibility="Auto"
+                          CanContentScroll="True">
+                <Label x:Name="ChatPanel"
+                       FontSize="{Binding FontSize}"
+                       Content="{Binding ChatBox}"/>
+            </ScrollViewer>
+            <Border x:Name="OnlineBorder"
+                    Background="#1d1e20"
+                    Grid.Column="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Ellipse Fill="Green"
+                             Width="10"
+                             Height="10"
+                             Margin="10,6,0,0"/>
+                    <Label Grid.Column="1"
+                           Content="Online"
+                           FontSize="16"
+                           VerticalAlignment="Bottom"/>
+                    <StackPanel Grid.Column="1"
+                                Grid.Row="1">
+                        <!--TODO: Тут добавлять через список елементов
+                        Посмотреть второй урок XAML-->
+                        <TextBox x:Name="Login" Text="{Binding UserName}"/>
+                        <TextBox x:Name="Password" Text="{Binding Password}"/>
+                        <Button Content="Log in" Height="20" Command="{Binding LoginCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="2" Background="#19191b">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="MenuButton">
+                <Image Source="\Resource\Images/MenuButton.png"/>
+            </Button>
+            <TextBox x:Name="MessageBox"
+                     Background="#19191b"
+                     Foreground="#3d3e41"
+                     FontSize="20"
+                     Text="{Binding MessageBox}"
+                     FontFamily="Miriam Libre"
+                     VerticalAlignment="Center"
+                     Grid.Column="1"
+                     BorderThickness="0">
+            </TextBox>
+            <Button x:Name="SendMessage"
+                    Command="{Binding SendMessageCommand}"
+                    Grid.Column="2"
+                    Padding="0,5,10,5">
+                <Image x:Name="SendMessageButton" Source="\Resource\Images\SendMessage.png"/>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
